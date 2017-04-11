@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <meta charset="utf8">
+  <title>
+    成功
+  </title>
+
+</head>
+
+<body>
+  上传成功
+  <table border="1">
+    <th>
+      id
+    </th>
+    <th>
+      文件名
+    </th>
+    <th>
+      是否推送过
+    </th>
+    <th>
+      操作
+    </th>
+    <tbody>
+      {%for file in filenames%}
+      <tr>
+        <td>
+          0
+        </td>
+        <td>
+          {{file}}
+        </td>
+        <td>
+          是
+        </td>
+        <td>
+          查看
+        </td>
+
+      </tr>
+      {%endfor%}
+      <tbody>
+</body>
+
+</html>

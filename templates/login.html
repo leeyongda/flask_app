@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>后台登录</title>
+    <link href="https://taylorchen709.github.io/vue-admin/static/css/app.640923a855f02c74fdfb6398f951fe7d.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <form data-v-2c8a1058="" class="el-form demo-ruleForm login-container el-form--label-left" action="/admin"  id="form" method="post"><h3 data-v-2c8a1058=""
+                                                                                                   class="title">
+        实习周记登录</h3>
+        <div data-v-2c8a1058="" class="el-form-item is-required"><!---->
+            <div class="el-form-item__content" style="margin-left: 0px;">
+                <div data-v-2c8a1058="" class="el-input"><!----><!----><input type="text" placeholder="学号"
+                                                                              autocomplete="off" name="name"
+                                                                              class="el-input__inner"><!----><!---->
+                </div><!----></div>
+        </div>
+        <div data-v-2c8a1058="" class="el-form-item is-required"><!---->
+            <div class="el-form-item__content" style="margin-left: 0px;">
+                <div data-v-2c8a1058="" class="el-input"><!----><!----><input type="password" placeholder="密码"
+                                                                              autocomplete="off" name="passw"
+                                                                              class="el-input__inner"><!----><!---->
+                </div><!----></div>
+        </div>
+
+        <div data-v-2c8a1058="" class="el-form-item" style="width: 100%;"><!---->
+            <div class="el-form-item__content" style="margin-left: 0px;">
+                <button data-v-2c8a1058="" type="button" class="el-button el-button--primary" style="width: 100%;" onclick=formSubmitClick()>
+                    <!----><!----><span>登录</span></button><!----></div>
+        </div>
+<p><font color="red">{{info}}</font></p>
+    </form>
+</div>
+
+<script>
+   function formSubmitClick() { 
+   document.getElementById('form').submit(); 
+            } 
+</script>
+</body>
+</html>

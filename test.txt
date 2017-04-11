@@ -1,0 +1,65 @@
+                                            Python 实习笔记
+
+#今天学习了一招Celery
+
+在Python 中使用 Celery 来完成异步发送邮箱。
+Celery 是一个简单、灵活且可靠的，处理大量消息的分布式系统，并且提供维护这样一个系统的必需工具。
+
+它是一个专注于实时处理的任务队列，同时也支持任务调度。
+选择中间人
+Celery 需要一个发送和接收消息的解决方案，其通常以独立服务形式出现， 称为 消息中间人 。
+
+可行的选择包括：
+
+RabbitMQ
+RabbitMQ 功能完备、稳定、耐用，并且安装简便，是生产环境的绝佳选择。 配合 Celery 使用 RabbitMQ。
+
+使用 RabbitMQ
+如果你使用 Ubuntu 或 Debian，可以执行这条命令来安装 RabbitMQ：
+
+$ sudo apt-get install rabbitmq-server
+命令执行完成后，中间人就已经运行在后台，准备好传输消息： Starting rabbitmq-server: SUCCESS 。
+
+如果你不使用 Ubuntu 或 Debian 也无须担心，你可以访问这个网站来寻找同样简单的其他平台上（包括 Microsoft Windows）的安装指南：
+
+http://www.rabbitmq.com/download.html
+Redis
+Redis 也是功能完备的，但更易受突然中断或断电带来数据丢失的。
+
+语言：Python
+开发环境：Vim
+python 包：Celery,flask.
+数据库：Mongodb,redis
+# Demo
+import uuid
+
+from flask import Flask, request, jsonify
+from celery import Celery
+
+app = Flask(__name__)
+app.config['CELERY_BROKER_URL'] = 'redis://localhost:6379/0'
+app.config['CELERY_RESULT_BACKEND'] = 'redis://localhost:6379/0'
+
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+celery.conf.update(app.config)
+
+
+@celery.task
+def send_email(to, subject, content):
+    return do_send_email(to, subject, content)
+
+
+@app.route('/password/forgot/', methods=['POST'])
+def reset_password():
+    email = request.form['email']
+    token = str(uuid.uuid4())
+    content = u'请点击链接重置密码：http://example.com/password/reset/?token=%s' % token
+    send_email.delay(email, content)
+    return jsonify(code=0, message=u'发送成功')
+
+
+if __name__ == '__main__':
+    app.run()
+
+
+
